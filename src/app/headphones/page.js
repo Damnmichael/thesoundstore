@@ -6,6 +6,7 @@ import Container from "../../components/Container";
 import data from "../../../data/data.json";
 import CategorySection from "../../components/CategorySection";
 import BestGearSection from "../../components/BestGearSection";
+import Footer from "../../components/Footer";
 
 const headphones = data
   .filter((item) => item.category === "headphones")
@@ -34,7 +35,11 @@ export default function HeadphonesPage() {
                 {product.new && <NewProductText>NEW PRODUCT</NewProductText>}
                 <ProductName>{product.name.toUpperCase()}</ProductName>
                 <ProductDescription>{product.description}</ProductDescription>
-                <Link href={`/${product.slug}`} passHref legacyBehavior>
+                <Link
+                  href={`/headphones/${product.slug}`}
+                  passHref
+                  legacyBehavior
+                >
                   <ProductButton>SEE PRODUCT</ProductButton>
                 </Link>
               </ProductInfo>
@@ -44,6 +49,7 @@ export default function HeadphonesPage() {
         <CategorySection />
         <BestGearSection />
       </Container>
+      <Footer />
     </>
   );
 }

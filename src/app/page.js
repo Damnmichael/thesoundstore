@@ -219,7 +219,7 @@ const ProductDescription = styled.h1`
   font-size: 15px;
   opacity: 75%;
   line-height: 25px;
-  max-width: 85%;
+  max-width: 65%;
 `;
 
 const TextAndButtonContainer = styled.div`

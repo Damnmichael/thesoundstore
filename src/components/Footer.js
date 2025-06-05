@@ -23,39 +23,43 @@ export default function Footer() {
             <FooterLink href="/earphones">EARPHONES</FooterLink>
           </FooterNav>
         </FooterTopRow>
-        <FooterDescription>
-          Audiophile is an all in one stop to fulfill your audio needs. We're a
-          small team of music lovers and sound specialists who are devoted to
-          helping you get the most out of personal audio. Come and visit our
-          demo facility - we're open 7 days a week.
-        </FooterDescription>
-        <SocialIcons>
-          <a href="#" aria-label="Facebook">
-            <Image
-              src="/assets/shared/desktop/icon-facebook.svg"
-              alt="Facebook"
-              width={24}
-              height={24}
-            />
-          </a>
-          <a href="#" aria-label="Twitter">
-            <Image
-              src="/assets/shared/desktop/icon-twitter.svg"
-              alt="Twitter"
-              width={24}
-              height={24}
-            />
-          </a>
-          <a href="#" aria-label="Instagram">
-            <Image
-              src="/assets/shared/desktop/icon-instagram.svg"
-              alt="Instagram"
-              width={24}
-              height={24}
-            />
-          </a>
-        </SocialIcons>
-        <Copyright>Copyright 2021. All Rights Reserved</Copyright>
+        <DescriptionAndSocial>
+          <FooterDescription>
+            Audiophile is an all in one stop to fulfill your audio needs. We're
+            a small team of music lovers and sound specialists who are devoted
+            to helping you get the most out of personal audio. Come and visit
+            our demo facility - we're open 7 days a week.
+          </FooterDescription>
+          <SocialIcons>
+            <a href="#" aria-label="Facebook">
+              <Image
+                src="/assets/shared/desktop/icon-facebook.svg"
+                alt="Facebook"
+                width={24}
+                height={24}
+              />
+            </a>
+            <a href="#" aria-label="Twitter">
+              <Image
+                src="/assets/shared/desktop/icon-twitter.svg"
+                alt="Twitter"
+                width={24}
+                height={24}
+              />
+            </a>
+            <a href="#" aria-label="Instagram">
+              <Image
+                src="/assets/shared/desktop/icon-instagram.svg"
+                alt="Instagram"
+                width={24}
+                height={24}
+              />
+            </a>
+          </SocialIcons>
+        </DescriptionAndSocial>
+        <CopyRightContainer>
+          <Copyright>Copyright 2021. All Rights Reserved</Copyright>
+        </CopyRightContainer>
       </FooterContent>
     </FooterContainer>
   );
@@ -65,16 +69,17 @@ const FooterContainer = styled.footer`
   width: 100%;
   background: #101010;
   color: #fff;
-  padding: 60px 0 40px 0;
+  padding: 75px 0 40px 0;
   display: flex;
   justify-content: center;
+  margin-top: 200px;
 `;
 
 const FooterContent = styled.div`
   width: 1110px;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 36px;
 `;
 
 const FooterTopRow = styled.div`
@@ -85,16 +90,13 @@ const FooterTopRow = styled.div`
   width: 100%;
 `;
 
-const Logo = styled.div`
-  margin-bottom: 32px;
-`;
+const Logo = styled.div``;
 
 const FooterDescription = styled.p`
   font-size: 15px;
   color: #fff;
   opacity: 0.5;
   max-width: 410px;
-  margin: 32px 0 0 0;
 `;
 
 const Copyright = styled.p`
@@ -124,4 +126,15 @@ const SocialIcons = styled.div`
   display: flex;
   gap: 16px;
   margin-top: 32px;
+`;
+
+const DescriptionAndSocial = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+`;
+
+const CopyRightContainer = styled.div`
+  margin-top: 56px;
 `;
