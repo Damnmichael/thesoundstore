@@ -34,7 +34,7 @@ export default function SpeakersPage() {
                 <ProductName>{product.name.toUpperCase()}</ProductName>
                 <ProductDescription>{product.description}</ProductDescription>
                 <Link
-                  href={`/speakers/${product.slug}`}
+                  href={`/${product.category}/${product.slug}`}
                   passHref
                   legacyBehavior
                 >
@@ -107,7 +107,7 @@ const NewProductText = styled.span`
   font-size: 14px;
   letter-spacing: 10px;
   font-weight: normal;
-  opacity: 0.5;
+
   text-transform: uppercase;
 `;
 

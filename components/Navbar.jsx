@@ -3,6 +3,7 @@
 import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
+import Link from "next/link";
 
 const Container = styled.nav`
   background-color: inherit;
@@ -49,6 +50,13 @@ const CartIcon = styled.div`
 `;
 
 const Navbar = () => {
+  const navLinks = [
+    { name: "HOME", link: "/" },
+    { name: "HEADPHONES", link: "/headphones" },
+    { name: "SPEAKERS", link: "/speakers" },
+    { name: "EARPHONES", link: "/earphones" },
+  ];
+
   return (
     <Container>
       <ContentContainer>
@@ -59,10 +67,11 @@ const Navbar = () => {
           alt="logo"
         />
         <NavLinks>
-          <NavLink>HOME</NavLink>
-          <NavLink>HEADPHONES</NavLink>
-          <NavLink>SPEAKERS</NavLink>
-          <NavLink>EARPHONES</NavLink>
+          {navLinks.map((nav) => (
+            <Link key={nav.name} href={nav.link} passHref legacyBehavior>
+              <NavLink as="a">{nav.name}</NavLink>
+            </Link>
+          ))}
         </NavLinks>
         <CartIcon>
           <Image

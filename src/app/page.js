@@ -13,8 +13,22 @@ import BestGearImage from "../../public/assets/shared/desktop/image-best-gear.jp
 import Footer from "../components/Footer";
 import Container from "../components/Container";
 import BestGearSection from "../components/BestGearSection";
+import Link from "next/link";
+import data from "../../data/data.json";
 
 export default function Home() {
+  const getProductCategoryAndSlug = (name) => {
+    const product = data.find((item) =>
+      item.name.toLowerCase().includes(name.toLowerCase())
+    );
+    return product ? { category: product.category, slug: product.slug } : null;
+  };
+
+  const heroProduct = getProductCategoryAndSlug("XX99 Mark II Headphones");
+  const zx9Product = getProductCategoryAndSlug("ZX9 Speaker");
+  const zx7Product = getProductCategoryAndSlug("ZX7 Speaker");
+  const yx1Product = getProductCategoryAndSlug("YX1 Wireless Earphones");
+
   return (
     <>
       <HeroSection>
@@ -29,9 +43,15 @@ export default function Home() {
                   quality made for the passionate music enthusiast.
                 </ProductDescription>
               </LeftContent>
-              <ButtonContainer>
-                <Button variant="primary">See Product</Button>
-              </ButtonContainer>
+              {heroProduct && (
+                <Link
+                  href={`/${heroProduct.category}/${heroProduct.slug}`}
+                  passHref
+                  legacyBehavior
+                >
+                  <Button variant="primary">See Product</Button>
+                </Link>
+              )}
             </TextAndButtonContainer>
           </LeftContainer>
           <HeroImageContainer>
@@ -83,7 +103,15 @@ export default function Home() {
                 Upgrade to premium speakers that are phenomenally built to
                 deliver truly remarkable sound.
               </TextDescription>
-              <Button variant="secondary">See Product</Button>
+              {zx9Product && (
+                <Link
+                  href={`/${zx9Product.category}/${zx9Product.slug}`}
+                  passHref
+                  legacyBehavior
+                >
+                  <Button variant="secondary">See Product</Button>
+                </Link>
+              )}
             </TextContainer>
           </ZX9SpeakerContentContainer>
         </ZX9SpeakerSection>
@@ -91,7 +119,15 @@ export default function Home() {
           <ZX7SpeakerContent>
             <ZX7TextContent>
               <ZX7Title>ZX7 SPEAKER</ZX7Title>
-              <Button variant="tertiary">SEE PRODUCT</Button>
+              {zx7Product && (
+                <Link
+                  href={`/${zx7Product.category}/${zx7Product.slug}`}
+                  passHref
+                  legacyBehavior
+                >
+                  <Button variant="tertiary">SEE PRODUCT</Button>
+                </Link>
+              )}
             </ZX7TextContent>
             <ZX7ImageBg style={{ width: "100%" }}>
               <Image
@@ -114,7 +150,15 @@ export default function Home() {
           </YX1EarphonesImageContainer>
           <YX1EarphonesContent>
             <YX1Title>YX1 EARPHONES</YX1Title>
-            <Button variant="tertiary">SEE PRODUCT</Button>
+            {yx1Product && (
+              <Link
+                href={`/${yx1Product.category}/${yx1Product.slug}`}
+                passHref
+                legacyBehavior
+              >
+                <Button variant="tertiary">SEE PRODUCT</Button>
+              </Link>
+            )}
           </YX1EarphonesContent>
         </YX1EarphonesSection>
         <BestGearSection />
