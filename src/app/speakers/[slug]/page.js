@@ -18,6 +18,11 @@ export default function SpeakerProductPage() {
   const [quantity, setQuantity] = React.useState(1);
   if (!product) return <div>Product not found</div>;
 
+  const getProductCategory = (slug) => {
+    const product = data.find((item) => item.slug === slug);
+    return product ? product.category : null;
+  };
+
   const handleDecrease = () => {
     setQuantity((q) => (q > 1 ? q - 1 : 1));
   };
@@ -142,21 +147,30 @@ export default function SpeakerProductPage() {
             YOU MAY ALSO LIKE
           </SectionTitle>
           <AlsoLikeList>
-            {product.others.map((other) => (
-              <AlsoLikeItem key={other.slug}>
-                <Image
-                  src={other.image.desktop.replace("./", "/")}
-                  alt={other.name}
-                  width={350}
-                  height={318}
-                  style={{ objectFit: "cover", borderRadius: "8px" }}
-                />
-                <h3>{other.name.toUpperCase()}</h3>
-                <Link href={`/speakers/${other.slug}`} passHref legacyBehavior>
-                  <ProductButton>SEE PRODUCT</ProductButton>
-                </Link>
-              </AlsoLikeItem>
-            ))}
+            {product.others.map((other) => {
+              const category = getProductCategory(other.slug);
+              return (
+                <AlsoLikeItem key={other.slug}>
+                  <Image
+                    src={other.image.desktop.replace("./", "/")}
+                    alt={other.name}
+                    width={350}
+                    height={318}
+                    style={{ objectFit: "cover", borderRadius: "8px" }}
+                  />
+                  <h3>{other.name.toUpperCase()}</h3>
+                  {category && (
+                    <Link
+                      href={`/${category}/${other.slug}`}
+                      passHref
+                      legacyBehavior
+                    >
+                      <ProductButton>SEE PRODUCT</ProductButton>
+                    </Link>
+                  )}
+                </AlsoLikeItem>
+              );
+            })}
           </AlsoLikeList>
         </AlsoLikeSection>
         <div style={{ marginTop: "160px" }}>
