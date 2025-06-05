@@ -12,6 +12,7 @@ import YX1EarphonesImage from "../../public/assets/home/desktop/image-earphones-
 import BestGearImage from "../../public/assets/shared/desktop/image-best-gear.jpg";
 import Footer from "../components/Footer";
 import Container from "../components/Container";
+import BestGearSection from "../components/BestGearSection";
 
 export default function Home() {
   return (
@@ -116,31 +117,7 @@ export default function Home() {
             <Button variant="tertiary">SEE PRODUCT</Button>
           </YX1EarphonesContent>
         </YX1EarphonesSection>
-        <BestGearSection>
-          <BestGearText>
-            <BestGearTitle>
-              BRINGING YOU THE <BestGearHighlight>BEST</BestGearHighlight> AUDIO
-              GEAR
-            </BestGearTitle>
-            <BestGearDescription>
-              Located at the heart of New York City, Audiophile is the premier
-              store for high end headphones, earphones, speakers, and audio
-              accessories. We have a large showroom and luxury demonstration
-              rooms available for you to browse and experience a wide range of
-              our products. Stop by our store to meet some of the fantastic
-              people who make Audiophile the best place to buy your portable
-              audio equipment.
-            </BestGearDescription>
-          </BestGearText>
-          <BestGearImageContainer>
-            <Image
-              src={BestGearImage}
-              alt="Bringing you the best audio gear"
-              fill
-              style={{ objectFit: "cover", borderRadius: "8px" }}
-            />
-          </BestGearImageContainer>
-        </BestGearSection>
+        <BestGearSection />
       </MiddleSectionContainer>
       <Footer />
     </>
@@ -412,50 +389,4 @@ const YX1Title = styled.h1`
   font-weight: bold;
   letter-spacing: 2px;
   margin-bottom: 32px;
-`;
-
-const BestGearSection = styled.section`
-  display: flex;
-  width: 1110px;
-  height: 588px;
-  margin: 80px auto 0 auto;
-  border-radius: 8px;
-  overflow: hidden;
-  background: transparent;
-`;
-
-const BestGearText = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 0 95px 0 0;
-`;
-
-const BestGearTitle = styled.h1`
-  font-size: 40px;
-  font-weight: bold;
-  line-height: 44px;
-  margin-bottom: 32px;
-  color: #000;
-  max-width: 80%;
-`;
-
-const BestGearHighlight = styled.span`
-  color: #d87d4a;
-`;
-
-const BestGearDescription = styled.p`
-  font-size: 15px;
-  color: #000000;
-  font-weight: 500;
-  line-height: 25px;
-  opacity: 50%;
-`;
-
-const BestGearImageContainer = styled.div`
-  flex: 1;
-  position: relative;
-  height: 100%;
 `;

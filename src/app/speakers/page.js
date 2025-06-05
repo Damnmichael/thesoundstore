@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import Container from "../../components/Container";
 import data from "../../../data/data.json";
+import CategorySection from "../../components/CategorySection";
+import BestGearSection from "../../components/BestGearSection";
 
 const speakers = data.filter((item) => item.category === "speakers").reverse();
 
@@ -37,6 +39,8 @@ export default function SpeakersPage() {
             </ProductRow>
           ))}
         </ProductsList>
+        <CategorySection />
+        <BestGearSection />
       </Container>
     </>
   );
@@ -61,8 +65,9 @@ const HeaderTitle = styled.h1`
 const ProductsList = styled.div`
   display: flex;
   flex-direction: column;
+  margin-top: 160px;
+  margin-bottom: 160px;
   gap: 160px;
-  margin: 120px 0;
 `;
 
 const ProductRow = styled.div`
