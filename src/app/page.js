@@ -4,38 +4,146 @@ import styled from "styled-components";
 import Image from "next/image";
 import HeroImage from "../../public/assets/home/desktop/image-hero.jpg";
 import Button from "../components/Button";
+import CategorySection from "../components/CategorySection";
+import PatternCircles from "../../public/assets/home/desktop/pattern-circles.svg";
+import ZX9SpeakerImage from "../../public/assets/home/desktop/image-speaker-zx9.png";
+import ZX7SpeakerImage from "../../public/assets/home/desktop/image-speaker-zx7.jpg";
+import YX1EarphonesImage from "../../public/assets/home/desktop/image-earphones-yx1.jpg";
+import BestGearImage from "../../public/assets/shared/desktop/image-best-gear.jpg";
+import Footer from "../components/Footer";
+import Container from "../components/Container";
 
 export default function Home() {
   return (
-    <HeroSection>
-      <LeftContainer>
-        <TextAndButtonContainer>
-          <LeftContent>
-            <NewProductText>NEW PRODUCT</NewProductText>
-            <ProductName>XX99 MARK II HEADPHONES</ProductName>
-            <ProductDescription>
-              Experience natural, lifelike audio and exceptional build quality
-              made for the passionate music enthusiast.
-            </ProductDescription>
-          </LeftContent>
-          <ButtonContainer>
-            <Button variant="primary">See Product</Button>
-          </ButtonContainer>
-        </TextAndButtonContainer>
-      </LeftContainer>
-      <Image
-        src={HeroImage}
-        alt="Hero"
-        style={{
-          width: "100%",
-          zIndex: 0,
-          height: "70vh",
-          position: "absolute",
-          left: 0,
-          objectFit: "contain",
-        }}
-      />
-    </HeroSection>
+    <>
+      <HeroSection>
+        <Container style={{ display: "flex" }}>
+          <LeftContainer>
+            <TextAndButtonContainer>
+              <LeftContent>
+                <NewProductText>NEW PRODUCT</NewProductText>
+                <ProductName>XX99 MARK II HEADPHONES</ProductName>
+                <ProductDescription>
+                  Experience natural, lifelike audio and exceptional build
+                  quality made for the passionate music enthusiast.
+                </ProductDescription>
+              </LeftContent>
+              <ButtonContainer>
+                <Button variant="primary">See Product</Button>
+              </ButtonContainer>
+            </TextAndButtonContainer>
+          </LeftContainer>
+          <HeroImageContainer>
+            <Image
+              src={HeroImage}
+              alt="Hero"
+              fill
+              style={{ objectFit: "cover", inset: "auto -34% auto auto" }}
+            />
+          </HeroImageContainer>
+        </Container>
+      </HeroSection>
+      <CategoryContainer>
+        <CategorySection />
+      </CategoryContainer>
+      <MiddleSectionContainer>
+        <ZX9SpeakerSection>
+          <Image
+            src={PatternCircles}
+            alt="pattern circles"
+            style={{
+              position: "absolute",
+              objectFit: "cover",
+              top: 10,
+              left: "-18%",
+              width: "90%",
+              // height: "100%",
+              zIndex: 0,
+            }}
+          />
+          <ZX9SpeakerImageContainer>
+            <Image
+              src={ZX9SpeakerImage}
+              alt="ZX9 Speaker"
+              style={{
+                objectFit: "contain",
+                width: "380px",
+                height: "450px",
+                position: "absolute",
+                bottom: -10,
+                right: 0,
+              }}
+            />
+          </ZX9SpeakerImageContainer>
+          <ZX9SpeakerContentContainer style={{ flex: 1 }}>
+            <TextContainer>
+              <TextTitle style={{ maxWidth: "350px" }}>ZX9 SPEAKER</TextTitle>
+              <TextDescription style={{ maxWidth: "350px" }}>
+                Upgrade to premium speakers that are phenomenally built to
+                deliver truly remarkable sound.
+              </TextDescription>
+              <Button variant="secondary">See Product</Button>
+            </TextContainer>
+          </ZX9SpeakerContentContainer>
+        </ZX9SpeakerSection>
+        <ZX7SpeakerSection>
+          <ZX7SpeakerContent>
+            <ZX7TextContent>
+              <ZX7Title>ZX7 SPEAKER</ZX7Title>
+              <Button variant="tertiary">SEE PRODUCT</Button>
+            </ZX7TextContent>
+            <ZX7ImageBg style={{ width: "100%" }}>
+              <Image
+                src={ZX7SpeakerImage}
+                alt="ZX7 Speaker"
+                fill
+                style={{ objectFit: "cover", borderRadius: "8px" }}
+              />
+            </ZX7ImageBg>
+          </ZX7SpeakerContent>
+        </ZX7SpeakerSection>
+        <YX1EarphonesSection>
+          <YX1EarphonesImageContainer>
+            <Image
+              src={YX1EarphonesImage}
+              alt="YX1 Earphones"
+              fill
+              style={{ objectFit: "cover", borderRadius: "8px" }}
+            />
+          </YX1EarphonesImageContainer>
+          <YX1EarphonesContent>
+            <YX1Title>YX1 EARPHONES</YX1Title>
+            <Button variant="tertiary">SEE PRODUCT</Button>
+          </YX1EarphonesContent>
+        </YX1EarphonesSection>
+        <BestGearSection>
+          <BestGearText>
+            <BestGearTitle>
+              BRINGING YOU THE <BestGearHighlight>BEST</BestGearHighlight> AUDIO
+              GEAR
+            </BestGearTitle>
+            <BestGearDescription>
+              Located at the heart of New York City, Audiophile is the premier
+              store for high end headphones, earphones, speakers, and audio
+              accessories. We have a large showroom and luxury demonstration
+              rooms available for you to browse and experience a wide range of
+              our products. Stop by our store to meet some of the fantastic
+              people who make Audiophile the best place to buy your portable
+              audio equipment.
+            </BestGearDescription>
+          </BestGearText>
+          <BestGearImageContainer>
+            <Image
+              src={BestGearImage}
+              alt="Bringing you the best audio gear"
+              fill
+              style={{ objectFit: "cover", borderRadius: "8px" }}
+            />
+          </BestGearImageContainer>
+        </BestGearSection>
+      </MiddleSectionContainer>
+      <Footer />
+    </>
   );
 }
 
@@ -44,25 +152,61 @@ const HeroSection = styled.div`
   align-items: center;
   position: relative;
   background-color: #141414;
+  height: 729px;
+
+  @media (max-width: 768px) {
+    & > section {
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      height: 100vh;
+      padding: 0 24px;
+    }
+  }
 `;
 
 const LeftContainer = styled.div`
-  width: 45%;
+  /* width: 45%; */
   height: 70vh;
-  background-color: #141414;
+  /* background-color: #141414; */
   z-index: 99;
-  padding: 32px 165px;
+  /* padding: 32px 165px; */
+
+  @media (max-width: 768px) {
+    margin-bottom: 5.75rem;
+  }
 `;
 
 const HeroImageContainer = styled.div`
-  width: 100%;
-  height: 70vh;
-  position: absolute;
-  left: 0;
-  top: 0;
+  width: 789px;
+  height: 729px;
+  overflow: hidden;
+  position: relative;
   z-index: 0;
-  align-items: flex-end;
-  justify-content: flex-end;
+
+  & img {
+    mix-blend-mode: luminosity;
+    width: auto !important;
+  }
+
+  @media (max-width: 768px) {
+    position: absolute;
+    inset: 0;
+    width: 100vw;
+    height: 100%;
+
+    & img {
+      opacity: 50%;
+      inset: auto -12% auto auto !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    & img {
+      opacity: 50%;
+      inset: auto -60% auto auto !important;
+    }
+  }
 `;
 
 const NewProductText = styled.h1`
@@ -82,6 +226,15 @@ const LeftContent = styled.div`
   flex-direction: column;
   gap: 24px;
   margin-top: 128px;
+
+  @media (max-width: 768px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+  }
 `;
 
 const ProductDescription = styled.h1`
@@ -89,6 +242,7 @@ const ProductDescription = styled.h1`
   font-size: 15px;
   opacity: 75%;
   line-height: 25px;
+  max-width: 85%;
 `;
 
 const TextAndButtonContainer = styled.div`
@@ -100,4 +254,208 @@ const TextAndButtonContainer = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: flex-start;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
+`;
+
+const CategoryContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 120px 0;
+`;
+
+const MiddleSectionContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ZX9SpeakerSection = styled.div`
+  display: flex;
+  width: 1110px;
+  height: 560px;
+  background-color: #d87d4a;
+  margin: auto;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+`;
+
+const TextTitle = styled.h1`
+  font-weight: bold;
+  font-size: 56px;
+  line-height: 58px;
+  padding-top: 40px;
+`;
+
+const PatternCircleBg = styled.img`
+  position: absolute;
+  object-fit: cover;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+`;
+
+const ZX9SpeakerImageContainer = styled.div`
+  flex: 1;
+
+  height: 100%;
+  position: relative;
+
+  bottom: 0px;
+  z-index: 1;
+`;
+
+const ZX9SpeakerContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const TextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+`;
+
+const TextDescription = styled.h1`
+  font-weight: 500;
+  font-size: 15px;
+  opacity: 75%;
+  line-height: 25px;
+  max-width: 85%;
+`;
+
+const ZX7SpeakerSection = styled.div`
+  display: flex;
+  width: 1110px;
+  height: 320px;
+  background: #f1f1f1;
+  margin: 40px auto 0 auto;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+`;
+
+const ZX7SpeakerContent = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  position: relative;
+`;
+
+const ZX7TextContent = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding-left: 95px;
+  z-index: 1;
+`;
+
+const ZX7Title = styled.h1`
+  font-size: 28px;
+  color: #000000;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin-bottom: 32px;
+`;
+
+const ZX7ImageBg = styled.div`
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 60%;
+  height: 100%;
+  z-index: 0;
+`;
+
+const YX1EarphonesSection = styled.div`
+  display: flex;
+  width: 1110px;
+  height: 320px;
+  margin: 40px auto 0 auto;
+  border-radius: 8px;
+  overflow: hidden;
+  column-gap: 30px;
+`;
+
+const YX1EarphonesImageContainer = styled.div`
+  width: 50%;
+  height: 100%;
+  position: relative;
+`;
+
+const YX1EarphonesContent = styled.div`
+  width: 50%;
+  height: 100%;
+  background: #f1f1f1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const YX1Title = styled.h1`
+  font-size: 28px;
+  color: #000000;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin-bottom: 32px;
+`;
+
+const BestGearSection = styled.section`
+  display: flex;
+  width: 1110px;
+  height: 588px;
+  margin: 80px auto 0 auto;
+  border-radius: 8px;
+  overflow: hidden;
+  background: transparent;
+`;
+
+const BestGearText = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0 95px 0 0;
+`;
+
+const BestGearTitle = styled.h1`
+  font-size: 40px;
+  font-weight: bold;
+  line-height: 44px;
+  margin-bottom: 32px;
+  color: #000;
+  max-width: 80%;
+`;
+
+const BestGearHighlight = styled.span`
+  color: #d87d4a;
+`;
+
+const BestGearDescription = styled.p`
+  font-size: 15px;
+  color: #000000;
+  font-weight: 500;
+  line-height: 25px;
+  opacity: 50%;
+`;
+
+const BestGearImageContainer = styled.div`
+  flex: 1;
+  position: relative;
+  height: 100%;
 `;

@@ -64,7 +64,14 @@ const Navbar = () => {
           <NavLink>SPEAKERS</NavLink>
           <NavLink>EARPHONES</NavLink>
         </NavLinks>
-        <CartIcon>🛒</CartIcon>
+        <CartIcon>
+          <Image
+            src="/assets/shared/desktop/icon-cart.svg"
+            width={23}
+            height={20}
+            alt="cart"
+          />
+        </CartIcon>
       </ContentContainer>
     </Container>
   );
