@@ -5,6 +5,7 @@ import React from "react";
 import styled, { css } from "styled-components";
 import Link from "next/link";
 import { useCart } from "../src/context/CartContext";
+import { useRouter } from "next/navigation";
 
 const Container = styled.nav`
   background-color: inherit;
@@ -219,6 +220,7 @@ const Navbar = () => {
   ];
   const { cart, itemCount, total, increment, decrement, removeAll } = useCart();
   const [cartOpen, setCartOpen] = React.useState(false);
+  const router = useRouter();
 
   const getCartImage = (image) => {
     if (typeof image === "string") return image.replace("./", "/");
@@ -316,7 +318,14 @@ const Navbar = () => {
                 <CartTotalLabel>TOTAL</CartTotalLabel>
                 <CartTotalValue>$ {total.toLocaleString()}</CartTotalValue>
               </CartTotalRow>
-              <CheckoutButton>CHECKOUT</CheckoutButton>
+              <CheckoutButton
+                onClick={() => {
+                  setCartOpen(false);
+                  router.push("/checkout");
+                }}
+              >
+                CHECKOUT
+              </CheckoutButton>
             </CartModal>
           </CartModalOverlay>
         )}
