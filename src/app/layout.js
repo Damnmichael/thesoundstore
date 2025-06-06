@@ -2,6 +2,7 @@ import { Manrope } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import StyledComponentsRegistry from "./registry";
+import { CartProvider } from "../context/CartContext";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -15,15 +16,17 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${manrope.className}`}>
-        <StyledComponentsRegistry>
-          <div style={{ display: "flex", flexDirection: "column", gap: -20 }}>
-            <Navbar />
-            {children}
-          </div>
-        </StyledComponentsRegistry>
-      </body>
-    </html>
+    <CartProvider>
+      <html lang="en" suppressHydrationWarning>
+        <body className={`${manrope.className}`}>
+          <StyledComponentsRegistry>
+            <div style={{ display: "flex", flexDirection: "column", gap: -20 }}>
+              <Navbar />
+              {children}
+            </div>
+          </StyledComponentsRegistry>
+        </body>
+      </html>
+    </CartProvider>
   );
 }

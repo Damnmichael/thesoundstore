@@ -9,6 +9,7 @@ import CategorySection from "../../../components/CategorySection";
 import BestGearSection from "../../../components/BestGearSection";
 import Footer from "../../../components/Footer";
 import React from "react";
+import { useCart } from "../../../context/CartContext";
 
 export default function SpeakerProductPage() {
   const { slug } = useParams();
@@ -16,6 +17,7 @@ export default function SpeakerProductPage() {
     (item) => item.slug === slug && item.category === "speakers"
   );
   const [quantity, setQuantity] = React.useState(1);
+  const { addToCart } = useCart();
   if (!product) return <div>Product not found</div>;
 
   const getProductCategory = (slug) => {
@@ -83,7 +85,9 @@ export default function SpeakerProductPage() {
                   +
                 </button>
               </QuantitySelector>
-              <AddToCartButton>ADD TO CART</AddToCartButton>
+              <AddToCartButton onClick={() => addToCart(product, quantity)}>
+                ADD TO CART
+              </AddToCartButton>
             </ProductActions>
           </ProductInfo>
         </MainSection>
