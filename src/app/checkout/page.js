@@ -4,6 +4,7 @@ import { useCart } from "../../context/CartContext";
 import Image from "next/image";
 import React, { useState } from "react";
 import CashOnDeliveryIcon from "../../../public/assets/checkout/icon-cash-on-delivery.svg";
+import { useRouter } from "next/navigation";
 
 const SHIPPING_COST = 50;
 const VAT_RATE = 0.2;
@@ -310,6 +311,184 @@ const CashOnDeliveryMsg = styled.div`
   }
 `;
 
+const ConfirmationOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ConfirmationModal = styled.div`
+  background: #fff;
+  border-radius: 8px;
+  width: 540px;
+  max-width: 95vw;
+  padding: 48px 48px 46px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+`;
+
+const ConfirmationIcon = styled.img`
+  width: 64px;
+  height: 64px;
+`;
+
+const ConfirmationTitle = styled.h2`
+  font-size: 32px;
+  font-weight: bold;
+  color: #000;
+  margin: 0;
+  line-height: 36px;
+`;
+
+const ConfirmationMsg = styled.p`
+  color: #000;
+  opacity: 50%;
+  font-size: 15px;
+  font-weight: 500;
+  margin: 0;
+`;
+
+const ConfirmationSummary = styled.div`
+  width: 100%;
+  display: flex;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f1f1f1;
+  margin-bottom: 8px;
+`;
+
+const ConfirmationItemBox = styled.div`
+  flex: 1;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #f1f1f1;
+`;
+
+const ConfirmationItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+`;
+
+const ConfirmationItemImg = styled.img`
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: #fff;
+`;
+
+const ConfirmationItemInfo = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+`;
+
+const ConfirmationItemName = styled.div`
+  font-size: 15px;
+  font-weight: bold;
+  color: #000;
+  line-height: 25px;
+`;
+
+const ConfirmationItemPrice = styled.div`
+  font-size: 14px;
+  color: #000;
+  opacity: 50%;
+  font-weight: bold;
+`;
+
+const ConfirmationItemQty = styled.div`
+  font-size: 15px;
+  color: #000;
+  opacity: 50%;
+  font-weight: bold;
+`;
+
+const ConfirmationOther = styled.div`
+  font-size: 12px;
+  color: #000;
+  opacity: 50%;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 8px;
+`;
+
+const ConfirmationDivider = styled.div`
+  width: 100%;
+  height: 1px;
+  background: #000000;
+  opacity: 8%;
+  margin: 12px 0 0 0;
+`;
+
+const ConfirmationTotalBox = styled.div`
+  background: #000;
+  color: #fff;
+  min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  gap: 8px;
+`;
+
+const ConfirmationTotalContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  gap: 8px;
+`;
+
+const ConfirmationTotalLabel = styled.div`
+  font-size: 15px;
+  color: #fff;
+  opacity: 50%;
+  font-weight: 500;
+  text-align: center;
+`;
+
+const ConfirmationTotalValue = styled.div`
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+`;
+
+const ConfirmationHomeButton = styled.button`
+  width: 100%;
+  background: #d87d4a;
+  color: #fff;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 16px 0;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  margin-top: 16px;
+  transition: background 0.2s;
+  &:hover {
+    background: #fbaf85;
+    color: #fff;
+  }
+`;
+
 export default function CheckoutPage() {
   const { cart, total } = useCart();
   const [payment, setPayment] = useState("e-Money");
@@ -325,6 +504,8 @@ export default function CheckoutPage() {
   const [eMoneyPin, setEMoneyPin] = useState("");
   const [eMoneyPinTouched, setEMoneyPinTouched] = useState(false);
   const [continueHover, setContinueHover] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const router = useRouter();
 
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const emailError = emailTouched && !emailValid;
@@ -352,6 +533,13 @@ export default function CheckoutPage() {
 
   const vat = Math.round(total * VAT_RATE);
   const grandTotal = total + SHIPPING_COST + vat;
+
+  const canSubmit =
+    emailValid &&
+    !addressError &&
+    !countryError &&
+    !paymentError &&
+    (payment !== "e-Money" || (!eMoneyNumberError && !eMoneyPinError));
 
   return (
     <PageBackground>
@@ -536,11 +724,87 @@ export default function CheckoutPage() {
             <ContinueButton
               onMouseEnter={() => setContinueHover(true)}
               onMouseLeave={() => setContinueHover(false)}
+              onClick={() => {
+                setEmailTouched(true);
+                setAddressTouched(true);
+                setCountryTouched(true);
+                setPaymentTouched(true);
+                setEMoneyNumberTouched(true);
+                setEMoneyPinTouched(true);
+                if (canSubmit) setShowConfirmation(true);
+              }}
             >
               {continueHover ? "CONTINUE" : "CONTINUE & PAY"}
             </ContinueButton>
           </SummaryCard>
         </SummarySection>
+        {showConfirmation && (
+          <ConfirmationOverlay>
+            <ConfirmationModal>
+              <ConfirmationIcon
+                src="/assets/checkout/icon-order-confirmation.svg"
+                alt="Order Confirmed"
+              />
+              <ConfirmationTitle>
+                THANK YOU
+                <br />
+                FOR YOUR ORDER
+              </ConfirmationTitle>
+              <ConfirmationMsg>
+                You will receive an email confirmation shortly.
+              </ConfirmationMsg>
+              <ConfirmationSummary>
+                <ConfirmationItemBox>
+                  {cart.length > 0 && (
+                    <>
+                      <ConfirmationItem>
+                        <ConfirmationItemImg
+                          src={
+                            typeof cart[0].image === "string"
+                              ? cart[0].image.replace("./", "/")
+                              : cart[0].image.desktop.replace("./", "/")
+                          }
+                          alt={cart[0].name}
+                        />
+                        <ConfirmationItemInfo>
+                          <ConfirmationItemName>
+                            {cart[0].name.split(" ")[0].toUpperCase()}{" "}
+                            {cart[0].name.match(/MK\s?II/i) ? "MK II" : ""}
+                          </ConfirmationItemName>
+                          <ConfirmationItemPrice>
+                            $ {cart[0].price.toLocaleString()}
+                          </ConfirmationItemPrice>
+                        </ConfirmationItemInfo>
+                        <ConfirmationItemQty>
+                          x{cart[0].quantity}
+                        </ConfirmationItemQty>
+                      </ConfirmationItem>
+                      {cart.length > 1 && (
+                        <>
+                          <ConfirmationDivider />
+                          <ConfirmationOther>
+                            and {cart.length - 1} other item(s)
+                          </ConfirmationOther>
+                        </>
+                      )}
+                    </>
+                  )}
+                </ConfirmationItemBox>
+                <ConfirmationTotalBox>
+                  <ConfirmationTotalContainer>
+                    <ConfirmationTotalLabel>GRAND TOTAL</ConfirmationTotalLabel>
+                    <ConfirmationTotalValue>
+                      $ {grandTotal.toLocaleString()}
+                    </ConfirmationTotalValue>
+                  </ConfirmationTotalContainer>
+                </ConfirmationTotalBox>
+              </ConfirmationSummary>
+              <ConfirmationHomeButton onClick={() => router.push("/")}>
+                BACK TO HOME
+              </ConfirmationHomeButton>
+            </ConfirmationModal>
+          </ConfirmationOverlay>
+        )}
       </OuterContainer>
     </PageBackground>
   );
