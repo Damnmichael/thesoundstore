@@ -6,6 +6,7 @@ import styled, { css } from "styled-components";
 import Link from "next/link";
 import { useCart } from "../src/context/CartContext";
 import { useRouter } from "next/navigation";
+import CategorySection from "../src/components/CategorySection";
 
 const Container = styled.nav`
   background-color: inherit;
@@ -17,6 +18,12 @@ const Container = styled.nav`
   padding: 0px 165px;
   justify-content: space-between;
   background-color: #141414;
+  @media (max-width: 1024px) {
+    padding: 0px 32px;
+  }
+  @media (max-width: 768px) {
+    padding: 0px 16px;
+  }
 `;
 
 const ContentContainer = styled.div`
@@ -29,12 +36,21 @@ const ContentContainer = styled.div`
   padding: 32px 0px 36px 0px;
   justify-content: space-between;
   border-bottom: 1px solid #979797;
+  @media (max-width: 1024px) {
+    padding: 24px 0px 28px 0px;
+  }
+  @media (max-width: 768px) {
+    padding: 16px 0px 18px 0px;
+  }
 `;
 
 const NavLinks = styled.ul`
   display: flex;
   gap: 34px;
   list-style: none;
+  @media (max-width: 1024px) {
+    display: none;
+  }
 `;
 
 const NavLink = styled.li`
@@ -216,6 +232,112 @@ const CheckoutButton = styled.button`
   }
 `;
 
+const HamburgerIcon = styled.div`
+  display: none;
+  font-size: 32px;
+  cursor: pointer;
+  color: #fff;
+  @media (max-width: 1024px) {
+    display: block;
+  }
+  height: 40px;
+  width: 40px;
+  align-items: center;
+  justify-content: center;
+`;
+
+const MobileMenuOverlay = styled.div`
+  position: fixed;
+  top: 80px; /* height of navbar */
+  left: 0;
+  width: 100vw;
+  height: calc(100vh - 80px);
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: hidden;
+`;
+
+const MobileMenuPanel = styled.div`
+  background: #fff;
+  color: #000;
+  border-radius: 8px;
+  width: 100%;
+  height: 340px;
+  padding: 32px 32px 32px 32px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
+  position: relative;
+  @media (max-width: 1024px) {
+    padding: 32px 32px 32px 32px;
+  }
+  @media (max-width: 768px) {
+    height: auto;
+    min-height: 340px;
+    padding: 24px 16px 24px 16px;
+    overflow-y: auto;
+  }
+`;
+
+const CloseMenuIcon = styled.div`
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  font-size: 32px;
+  color: #000;
+  cursor: pointer;
+  z-index: 10;
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const CategorySectionWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 0;
+  @media (max-width: 1024px) {
+    padding: 0 32px;
+  }
+  @media (max-width: 768px) {
+    padding: 0 16px;
+  }
+  & > section {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    justify-content: center;
+    gap: 32px;
+  }
+  @media (max-width: 768px) {
+    & > section {
+      flex-direction: column !important;
+      gap: 24px !important;
+      align-items: center;
+      width: 100%;
+      max-width: 400px;
+    }
+  }
+  @media (min-width: 769px) and (max-width: 1024px) {
+    & > section {
+      flex-direction: row !important;
+      gap: 32px !important;
+      align-items: center;
+      width: 100%;
+      max-width: 700px;
+    }
+  }
+`;
+
 const Navbar = () => {
   const navLinks = [
     { name: "HOME", link: "/" },
@@ -225,6 +347,7 @@ const Navbar = () => {
   ];
   const { cart, itemCount, total, increment, decrement, removeAll } = useCart();
   const [cartOpen, setCartOpen] = React.useState(false);
+  const [menuOpen, setMenuOpen] = React.useState(false);
   const router = useRouter();
 
   const getCartImage = (image) => {
@@ -233,14 +356,42 @@ const Navbar = () => {
     return "/assets/shared/desktop/image-category-thumbnail-headphones.png";
   };
 
+  React.useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+      document.body.style.width = "100%";
+    } else {
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
+    };
+  }, [menuOpen]);
+
   return (
     <Container>
       <ContentContainer>
+        <HamburgerIcon onClick={() => setMenuOpen(true)}>
+          <Image
+            src="/assets/shared/tablet/icon-hamburger.svg"
+            alt="menu"
+            width={24}
+            height={24}
+            style={{ width: 24, height: 24 }}
+            priority
+          />
+        </HamburgerIcon>
         <Image
           src="/assets/shared/desktop/logo.svg"
           width={143}
           height={25}
           alt="logo"
+          style={{ marginLeft: 24, marginRight: 24 }}
         />
         <NavLinks>
           {navLinks.map((nav) => (
@@ -282,6 +433,51 @@ const Navbar = () => {
             </span>
           )}
         </CartIcon>
+        {menuOpen && (
+          <MobileMenuOverlay onClick={() => setMenuOpen(false)}>
+            <MobileMenuPanel onClick={(e) => e.stopPropagation()}>
+              <CloseMenuIcon onClick={() => setMenuOpen(false)}>
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line
+                    x1="5"
+                    y1="5"
+                    x2="19"
+                    y2="19"
+                    stroke="#000"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                  <line
+                    x1="19"
+                    y1="5"
+                    x2="5"
+                    y2="19"
+                    stroke="#000"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </CloseMenuIcon>
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <CategorySectionWrapper>
+                  <CategorySection />
+                </CategorySectionWrapper>
+              </div>
+            </MobileMenuPanel>
+          </MobileMenuOverlay>
+        )}
         {cartOpen && (
           <CartModalOverlay onClick={() => setCartOpen(false)}>
             <CartModal onClick={(e) => e.stopPropagation()}>
