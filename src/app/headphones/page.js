@@ -23,13 +23,28 @@ export default function HeadphonesPage() {
           {headphones.map((product, idx) => (
             <ProductRow key={product.id} reverse={idx % 2 === 1}>
               <ProductImageWrapper>
-                <Image
-                  src={product.image.desktop.replace("./", "/")}
-                  alt={product.name}
-                  width={540}
-                  height={560}
-                  style={{ objectFit: "cover", borderRadius: "8px" }}
-                />
+                <picture>
+                  <source
+                    media="(max-width: 767px)"
+                    srcSet={product.image.mobile.replace("./", "/")}
+                  />
+                  <source
+                    media="(max-width: 1023px)"
+                    srcSet={product.image.tablet.replace("./", "/")}
+                  />
+                  <img
+                    src={product.image.desktop.replace("./", "/")}
+                    alt={product.name}
+                    width={540}
+                    height={560}
+                    style={{
+                      objectFit: "cover",
+                      borderRadius: "8px",
+                      width: "100%",
+                      height: "auto",
+                    }}
+                  />
+                </picture>
               </ProductImageWrapper>
               <ProductInfo>
                 {product.new && <NewProductText>NEW PRODUCT</NewProductText>}
@@ -76,6 +91,18 @@ const ProductsList = styled.div`
   margin-top: 160px;
   margin-bottom: 160px;
   gap: 160px;
+
+  @media (max-width: 1023px) {
+    margin-top: 96px;
+    margin-bottom: 96px;
+    gap: 120px;
+  }
+
+  @media (max-width: 767px) {
+    margin-top: 64px;
+    margin-bottom: 64px;
+    gap: 56px;
+  }
 `;
 
 const ProductRow = styled.div`
@@ -83,9 +110,14 @@ const ProductRow = styled.div`
   flex-direction: ${({ reverse }) => (reverse ? "row-reverse" : "row")};
   align-items: center;
   gap: 125px;
-  @media (max-width: 900px) {
+
+  @media (max-width: 1023px) {
     flex-direction: column;
-    gap: 40px;
+    gap: 56px;
+  }
+
+  @media (max-width: 767px) {
+    gap: 32px;
   }
 `;
 
@@ -94,6 +126,12 @@ const ProductImageWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  max-width: 540px;
+
+  @media (max-width: 1023px) {
+    max-width: 100%;
+  }
 `;
 
 const ProductInfo = styled.div`
@@ -102,6 +140,11 @@ const ProductInfo = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 32px;
+
+  @media (max-width: 1023px) {
+    align-items: center;
+    text-align: center;
+  }
 `;
 
 const NewProductText = styled.span`

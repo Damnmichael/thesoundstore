@@ -109,7 +109,9 @@ export default function Home() {
                   passHref
                   legacyBehavior
                 >
-                  <Button variant="secondary">See Product</Button>
+                  <Button style={{ zIndex: 10 }} variant="secondary">
+                    See Product
+                  </Button>
                 </Link>
               )}
             </TextContainer>
@@ -314,11 +316,13 @@ const ZX9SpeakerSection = styled.div`
   overflow: hidden;
 
   & > img {
-    top: -260px !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
+    @media (max-width: 768px) {
+      top: -260px !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+    }
   }
 
   @media (max-width: 768px) {
@@ -358,8 +362,9 @@ const ZX9SpeakerImageContainer = styled.div`
   z-index: 1;
 
   & img {
-    position: relative !important;
     @media (max-width: 768px) {
+      position: relative !important;
+
       width: 197px !important;
       height: auto !important;
     }

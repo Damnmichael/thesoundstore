@@ -49,6 +49,11 @@ const NavLink = styled.li`
 
 const CartIcon = styled.div`
   font-size: 24px;
+  cursor: pointer;
+  transition: color 0.2s;
+  &:hover {
+    color: #d87d4a;
+  }
 `;
 
 const CartModalOverlay = styled.div`

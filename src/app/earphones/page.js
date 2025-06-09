@@ -102,6 +102,11 @@ const ProductInfo = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 32px;
+
+  @media (max-width: 1023px) {
+    align-items: center;
+    text-align: center;
+  }
 `;
 
 const NewProductText = styled.span`
