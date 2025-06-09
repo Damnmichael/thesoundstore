@@ -71,6 +71,10 @@ const CategoryCard = styled.div`
   align-items: center;
   justify-content: flex-end;
   position: relative;
+
+  @media (max-width: 768px) {
+    width: 223px;
+  }
 `;
 
 const ImageWrapper = styled.div`

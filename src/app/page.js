@@ -270,6 +270,10 @@ const TextAndButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 40px;
+  @media (max-width: 768px) {
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 const ButtonContainer = styled.div`
@@ -294,6 +298,9 @@ const MiddleSectionContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media (max-width: 768px) {
+    margin-inline: 40px;
+  }
 `;
 
 const ZX9SpeakerSection = styled.div`
@@ -305,6 +312,22 @@ const ZX9SpeakerSection = styled.div`
   border-radius: 8px;
   position: relative;
   overflow: hidden;
+
+  & > img {
+    top: -260px !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    height: fit-content;
+    padding-top: 52px;
+    padding-bottom: 64px;
+    max-width: 90vw;
+  }
 `;
 
 const TextTitle = styled.h1`
@@ -333,6 +356,21 @@ const ZX9SpeakerImageContainer = styled.div`
 
   bottom: 0px;
   z-index: 1;
+
+  & img {
+    position: relative !important;
+    @media (max-width: 768px) {
+      width: 197px !important;
+      height: auto !important;
+    }
+  }
+
+  @media (max-width: 768px) {
+    display: grid;
+    place-items: center;
+    width: 607px;
+    height: 100%;
+  }
 `;
 
 const ZX9SpeakerContentContainer = styled.div`
@@ -340,12 +378,18 @@ const ZX9SpeakerContentContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media (max-width: 768px) {
+    text-align: center;
+  }
 `;
 
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 24px;
+  @media (max-width: 768px) {
+    align-items: center;
+  }
 `;
 
 const TextDescription = styled.h1`
@@ -365,6 +409,10 @@ const ZX7SpeakerSection = styled.div`
   border-radius: 8px;
   position: relative;
   overflow: hidden;
+
+  @media (max-width: 768px) {
+    max-width: 689px;
+  }
 `;
 
 const ZX7SpeakerContent = styled.div`
@@ -399,6 +447,9 @@ const ZX7ImageBg = styled.div`
   width: 60%;
   height: 100%;
   z-index: 0;
+  @media (max-width: 768px) {
+    max-width: 689px;
+  }
 `;
 
 const YX1EarphonesSection = styled.div`
@@ -409,6 +460,10 @@ const YX1EarphonesSection = styled.div`
   border-radius: 8px;
   overflow: hidden;
   column-gap: 30px;
+  @media (max-width: 768px) {
+    max-width: 689px;
+    gap: 11px;
+  }
 `;
 
 const YX1EarphonesImageContainer = styled.div`

@@ -7,7 +7,9 @@ export default function BestGearSection() {
     <Section>
       <Text>
         <Title>
-          BRINGING YOU THE <Highlight>BEST</Highlight> AUDIO GEAR
+          BRINGING YOU THE <Highlight>BEST</Highlight>
+          <br />
+          AUDIO GEAR
         </Title>
         <Description>
           Located at the heart of New York City, Audiophile is the premier store
@@ -38,6 +40,22 @@ const Section = styled.section`
   border-radius: 8px;
   overflow: hidden;
   background: transparent;
+
+  @media (max-width: 1110px) {
+    width: 100%;
+    max-width: 100vw;
+    margin: 80px 24px 0 24px;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column-reverse;
+    width: 100%;
+    height: auto;
+    margin: 56px 24px 0 24px;
+    border-radius: 0;
+    align-items: center;
+    padding: 0;
+  }
 `;
 
 const Text = styled.div`
@@ -47,6 +65,14 @@ const Text = styled.div`
   justify-content: center;
   align-items: flex-start;
   padding: 0 95px 0 0;
+
+  @media (max-width: 768px) {
+    align-items: center;
+    text-align: center;
+
+    padding: 32px 0 0 0;
+    width: 100%;
+  }
 `;
 
 const Title = styled.h1`
@@ -56,6 +82,10 @@ const Title = styled.h1`
   margin-bottom: 32px;
   color: #000;
   max-width: 80%;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
 `;
 
 const Highlight = styled.span`
@@ -68,10 +98,38 @@ const Description = styled.p`
   font-weight: 500;
   line-height: 25px;
   opacity: 50%;
+
+  @media (max-width: 768px) {
+    width: 60ch;
+  }
 `;
 
 const ImageContainer = styled.div`
   flex: 1;
   position: relative;
   height: 100%;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 320px;
+    min-height: 220px;
+    margin-bottom: 32px;
+    overflow: hidden !important;
+
+    display: flex;
+  }
+
+  & > img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border-radius: 8px !important;
+
+    @media (max-width: 768px) {
+      position: relative !important;
+      border-radius: 8px !important;
+
+      height: 320px !important;
+    }
+  }
 `;

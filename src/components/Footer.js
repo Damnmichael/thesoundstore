@@ -23,13 +23,14 @@ export default function Footer() {
             <FooterLink href="/earphones">EARPHONES</FooterLink>
           </FooterNav>
         </FooterTopRow>
-        <DescriptionAndSocial>
-          <FooterDescription>
-            Audiophile is an all in one stop to fulfill your audio needs. We're
-            a small team of music lovers and sound specialists who are devoted
-            to helping you get the most out of personal audio. Come and visit
-            our demo facility - we're open 7 days a week.
-          </FooterDescription>
+        <FooterDescription>
+          Audiophile is an all in one stop to fulfill your audio needs. We're a
+          small team of music lovers and sound specialists who are devoted to
+          helping you get the most out of personal audio. Come and visit our
+          demo facility - we're open 7 days a week.
+        </FooterDescription>
+        <FooterBottomRow>
+          <Copyright>Copyright 2021. All Rights Reserved</Copyright>
           <SocialIcons>
             <a href="#" aria-label="Facebook">
               <Image
@@ -56,10 +57,7 @@ export default function Footer() {
               />
             </a>
           </SocialIcons>
-        </DescriptionAndSocial>
-        <CopyRightContainer>
-          <Copyright>Copyright 2021. All Rights Reserved</Copyright>
-        </CopyRightContainer>
+        </FooterBottomRow>
       </FooterContent>
     </FooterContainer>
   );
@@ -80,6 +78,12 @@ const FooterContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 36px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 0 24px;
+    gap: 32px;
+  }
 `;
 
 const FooterTopRow = styled.div`
@@ -88,6 +92,12 @@ const FooterTopRow = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+  }
 `;
 
 const Logo = styled.div``;
@@ -97,6 +107,13 @@ const FooterDescription = styled.p`
   color: #fff;
   opacity: 0.5;
   max-width: 410px;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+
+    margin: 0 auto;
+    padding: 0 0 24px 0;
+  }
 `;
 
 const Copyright = styled.p`
@@ -108,6 +125,14 @@ const Copyright = styled.p`
 const FooterNav = styled.nav`
   display: flex;
   gap: 32px;
+
+  @media (max-width: 768px) {
+    margin-top: 24px;
+    gap: 24px;
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
 `;
 
 const FooterLink = styled(Link)`
@@ -126,15 +151,21 @@ const SocialIcons = styled.div`
   display: flex;
   gap: 16px;
   margin-top: 32px;
+
+  @media (max-width: 768px) {
+    margin-top: 0;
+  }
 `;
 
-const DescriptionAndSocial = styled.div`
+const FooterBottomRow = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
-  align-items: flex-end;
-`;
+  align-items: center;
+  width: 100%;
 
-const CopyRightContainer = styled.div`
-  margin-top: 56px;
+  @media (max-width: 768px) {
+    flex-direction: row;
+    width: 100%;
+    margin-top: 24px;
+  }
 `;
